@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      routes:
+        - id: EMPLOYMENT-SERVICE
+          uri: lb://EMPLOYMENT-SERVICE
+          predicates:
+            - Path=/api/employees/**
+        - id: DEPARTMENT-SERVICE
+          uri: lb://DEPARTMENT-SERVICE
+          predicates:
+            - Path=/api/departments/**
+server:
+  port: 8050
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8090/eureka/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
